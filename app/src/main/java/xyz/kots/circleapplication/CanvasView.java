@@ -12,27 +12,13 @@ import android.view.View;
 
 public class CanvasView extends View{
 
-    private MainCircle mainCircle;
-    private Paint paint;
+    private GameManager gameManager;
 
     public CanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        initMainCircle();
-        initPaint();
-    }
-
-    private void initPaint() {
-        // инициализируем кисточку для рисования
-        paint = new Paint();
-        // устанавливаем сглаживание круга
-        paint.setAntiAlias(true);
-        // заполняем круг
-        paint.setStyle(Paint.Style.FILL);
-    }
-
-    private void initMainCircle() {
-        mainCircle = new MainCircle(200,500);
+        //выделяем память
+        gameManager = new GameManager();
     }
 
     //Содержимое данного метода отображается на экране
@@ -40,8 +26,6 @@ public class CanvasView extends View{
     protected void onDraw(Canvas canvas) {
 
         super.onDraw(canvas);
-        //рисуем круг
-        canvas.drawCircle(mainCircle.getX(),mainCircle.getY(), mainCircle.getRadius(), paint);
-
+        gameManager.onDraw(canvas);
     }
 }
