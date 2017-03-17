@@ -13,20 +13,32 @@ import android.view.WindowManager;
  Рисуем на экране
  */
 
-public class CanvasView extends View{
+public class CanvasView extends View implements ICanvasView{
 
     private static int width;
     private static int height;
 
     private GameManager gameManager;
+    private Paint paint;
+    private Canvas canvas;
 
     public CanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         initWidthAndHeight(context);
-
+        initPaint();
         //выделяем память -> передаем ссылку на себя, что-бы менеджер мог обращаться к View
         gameManager = new GameManager(this, width, height);
+    }
+
+
+    private void initPaint() {
+        // инициализируем кисточку для рисования
+        paint = new Paint();
+        // устанавливаем сглаживание круга
+        paint.setAntiAlias(true);
+        // заполняем круг
+        paint.setStyle(Paint.Style.FILL);
     }
 
     private void initWidthAndHeight(Context context) {
@@ -48,6 +60,16 @@ public class CanvasView extends View{
     protected void onDraw(Canvas canvas) {
 
         super.onDraw(canvas);
-        gameManager.onDraw(canvas);
+
+        // сохраняем ссылку на сам canvas -> создаем поле для временного хранения canvas
+        this.canvas = canvas;
+
+        gameManager.onDraw();
+    }
+
+    @Override
+    public void drawCircle(MainCircle circle) {
+        //рисуем круг
+        canvas.drawCircle(circle.getX(),circle.getY(), circle.getRadius(), paint);
     }
 }
