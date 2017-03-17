@@ -3,13 +3,19 @@ package xyz.kots.circleapplication;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import java.util.ArrayList;
+
 /**
  Выделение логики приложения в отдельный класс GameManager
  */
 
 public class GameManager {
 
+    public static final int MAX_CIRCLES = 10;
     private MainCircle mainCircle;
+
+    // коллекция для хранения вражеских кругов
+    private ArrayList<EnemyCircle> circles;
 
     private CanvasView canvasView;
     private static int width;
@@ -23,6 +29,20 @@ public class GameManager {
         height = h;
 
         initMainCircle();
+        initCircles();
+    }
+
+
+    private void initCircles() {
+        circles = new ArrayList<EnemyCircle>();
+        for (int i = 0; i < MAX_CIRCLES; i++) {
+            //создаем круг
+            EnemyCircle circle;
+            //инициализируем круг рандомным кругом
+            circle = EnemyCircle.getRandomCircle();
+            //добавляем созданный круг в коллекцию
+            circles.add(circle);
+        }
     }
 
     public static int getWidth() {
@@ -39,7 +59,14 @@ public class GameManager {
     }
 
     public void onDraw() {
+        // рисуем главный круг
         canvasView.drawCircle(mainCircle);
+
+        // рисуем вражеские круги
+        for (EnemyCircle circle : circles) {
+            canvasView.drawCircle(circle);
+        }
+
     }
 
     public void onTouchEvent(int x, int y) {
