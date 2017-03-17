@@ -29,11 +29,11 @@ public class GameManager {
         height = h;
 
         initMainCircle();
-        initCircles();
+        initEnemyCircles();
     }
 
-
-    private void initCircles() {
+    //инициализируем вражеские круги
+    private void initEnemyCircles() {
         circles = new ArrayList<EnemyCircle>();
         for (int i = 0; i < MAX_CIRCLES; i++) {
             //создаем круг
@@ -42,6 +42,15 @@ public class GameManager {
             circle = EnemyCircle.getRandomCircle();
             //добавляем созданный круг в коллекцию
             circles.add(circle);
+        }
+
+        calculateAndSetCircleColor();
+    }
+
+    //рассчитываем и устанавливаем цвета наших кругов в зависимости от главного круга
+    private void calculateAndSetCircleColor() {
+        for (EnemyCircle circle : circles) {
+            circle.setEnemyOrFoodColorDependsOn(mainCircle);
         }
     }
 
