@@ -17,12 +17,20 @@ public class GameManager {
 
 
     public GameManager(CanvasView canvasView, int w, int h) {
-
         this.canvasView = canvasView;
+
         width = w;
         height = h;
 
         initMainCircle();
+    }
+
+    public static int getWidth() {
+        return width;
+    }
+
+    public static int getHeight() {
+        return height;
     }
 
 
@@ -32,5 +40,11 @@ public class GameManager {
 
     public void onDraw() {
         canvasView.drawCircle(mainCircle);
+    }
+
+    public void onTouchEvent(int x, int y) {
+
+        // передвигаем главный круг при касании
+        mainCircle.moveMainCircleWhenTouch(x,y);
     }
 }
