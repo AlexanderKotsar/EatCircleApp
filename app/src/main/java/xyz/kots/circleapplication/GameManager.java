@@ -107,7 +107,7 @@ public class GameManager {
                     calculateAndSetCircleColor();
                     break;
                 }else {
-                    gameEnd();
+                    gameEnd("YOU LOSE! :(");
                     return;
                 }
             }
@@ -118,12 +118,14 @@ public class GameManager {
         }
         // если коллекция пустая - победа :-)
         if (circles.isEmpty()){
-            gameEnd();
+            gameEnd("YOU WIN :)");
         }
     }
 
     //перезапуск игры при касании к вражескому кругу
-    private void gameEnd() {
+    private void gameEnd(String text) {
+        canvasView.showMessage(text);
+
         //восстанавливаем главный круг
         mainCircle.initRadius();
         //инициализируем врожеские круги
