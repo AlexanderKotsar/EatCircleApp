@@ -7,5 +7,7 @@ package xyz.kots.circleapplication;
 public interface ICanvasView {
     void drawCircle(SimpleCircle mainCircle);
 
+    void redraw();
+
     //void redraw();
 }

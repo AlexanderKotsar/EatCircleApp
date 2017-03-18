@@ -29,11 +29,11 @@ public class EnemyCircle extends SimpleCircle
     public static EnemyCircle getRandomCircle() {
         Random random = new Random();
 
-        //узнаем ширину и высоту у GameManager что-бы наше число было в пределах екрана
+        //узнаем ширину и высоту у GameManager что-бы наше число было в пределах экрана
         int x = random.nextInt(GameManager.getWidth());
         int y = random.nextInt(GameManager.getHeight());
 
-        //реализовываем случаюную скорость передвижения кругов при касании к екрану
+        //реализовываем случаюную скорость передвижения кругов при касании к экрану
         int dx = 1 + random.nextInt(RANDOM_SPEED);
         int dy = 1 + random.nextInt(RANDOM_SPEED);
 
@@ -63,9 +63,21 @@ public class EnemyCircle extends SimpleCircle
         return false;
     }
 
-    //передвижение кругов при касании к екрану
+    //передвижение кругов при касании к экрану
     public void moveOnStep() {
         x += dx;
         y += dy;
+        checkBounds();
     }
+
+    //реализация отражения от границ экрана
+    private void checkBounds() {
+        if (x > GameManager.getWidth() || x < 0){
+            dx = - dx;
+        }
+        if (y > GameManager.getWidth() || y < 0){
+            dy = - dy;
+        }
+    }
+
 }

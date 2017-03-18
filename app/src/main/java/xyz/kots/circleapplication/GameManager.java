@@ -1,8 +1,5 @@
 package xyz.kots.circleapplication;
 
-import android.graphics.Canvas;
-import android.graphics.Paint;
-
 import java.util.ArrayList;
 
 /**
@@ -87,8 +84,30 @@ public class GameManager {
 
         // передвигаем главный круг при касании
         mainCircle.moveMainCircleWhenTouch(x,y);
+
+        //проверяем пересечение
+        cheсkCollision();
+
         // передвигаем остальные круги при касании
         moveCircles();
+    }
+
+    private void cheсkCollision() {
+        for (EnemyCircle circle : circles) {
+            if (mainCircle.isIntersect(circle)){
+                gameEnd();
+            }
+        }
+    }
+
+    //перезапуск игры при касании к вражескому кругу
+    private void gameEnd() {
+        //восстанавливаем главный круг
+        mainCircle.initRadius();
+        //инициализируем врожеские круги
+        initEnemyCircles();
+        //перерисовка View
+        canvasView.redraw();
     }
 
     private void moveCircles() {
