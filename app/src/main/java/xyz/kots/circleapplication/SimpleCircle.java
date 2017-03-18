@@ -37,4 +37,14 @@ public class SimpleCircle {
     public void setColor(int color) {
         this.color = color;
     }
+
+    //область вокруг главного круга
+    public SimpleCircle getCircleArea() {
+        return  new SimpleCircle(x,y, radius*3);
+    }
+
+    //узнаем, пересекаются ли круги при старте
+    public boolean isIntersect(SimpleCircle circle) {
+        return radius + circle.radius >= Math.sqrt(Math.pow(x - circle.x, 2) + Math.pow(y - circle.y, 2));
+    }
 }

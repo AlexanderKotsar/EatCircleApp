@@ -42,7 +42,7 @@ public class EnemyCircle extends SimpleCircle
     }
 
     private boolean isSmallerThan(SimpleCircle circle) {
-        //сравниваем радиус текущего круга и круга, который пришел через параметры
+        //сравниваем радиус текущего круга и круга
         if (radius < circle.radius){
             return true;
         }
