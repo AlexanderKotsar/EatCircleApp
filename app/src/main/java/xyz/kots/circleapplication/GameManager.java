@@ -44,7 +44,7 @@ public class GameManager {
             do {
                 //инициализируем круг рандомным кругом
                 circle = EnemyCircle.getRandomCircle();
-                //если круг пересекается с областью вокругнашего круга создаем его еще раз
+            //если круг пересекается с областью вокругнашего круга создаем его еще раз
             } while (circle.isIntersect(mainCircleArea));
             //добавляем созданный круг в коллекцию
             circles.add(circle);
@@ -70,7 +70,7 @@ public class GameManager {
 
 
     private void initMainCircle() {
-        mainCircle = new MainCircle(width / 2, height / 2);
+        mainCircle = new MainCircle(width/2, height/2);
     }
 
     public void onDraw() {
@@ -86,9 +86,14 @@ public class GameManager {
     public void onTouchEvent(int x, int y) {
 
         // передвигаем главный круг при касании
-        mainCircle.moveMainCircleWhenTouch(x, y);
-
-
+        mainCircle.moveMainCircleWhenTouch(x,y);
+        // передвигаем остальные круги при касании
+        moveCircles();
     }
 
+    private void moveCircles() {
+        for (EnemyCircle circle : circles) {
+            circle.moveOnStep();
+        }
+    }
 }
