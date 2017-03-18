@@ -86,17 +86,39 @@ public class GameManager {
         mainCircle.moveMainCircleWhenTouch(x,y);
 
         //проверяем пересечение
-        cheсkCollision();
+        checkCollision();
 
         // передвигаем остальные круги при касании
         moveCircles();
     }
 
-    private void cheсkCollision() {
+    private void checkCollision() {
+        SimpleCircle circleForDel = null;
+
         for (EnemyCircle circle : circles) {
             if (mainCircle.isIntersect(circle)){
-                gameEnd();
+
+                //если соприкасемый круг меньше, увеличиваем размер главного круга на радиус сьеденого круга
+                if (circle.isSmallerThan(mainCircle)){
+                    mainCircle.growRadius(circle);
+                    //сохраняем ссылку на сьеденый круг в переменную
+                    circleForDel = circle;
+                    //вызываем переоценку всех цветов
+                    calculateAndSetCircleColor();
+                    break;
+                }else {
+                    gameEnd();
+                    return;
+                }
             }
+        }
+        //если круг для удаления существуетБ удаляем его из коллекции
+        if (circleForDel != null){
+            circles.remove(circleForDel);
+        }
+        // если коллекция пустая - победа :-)
+        if (circles.isEmpty()){
+            gameEnd();
         }
     }
 

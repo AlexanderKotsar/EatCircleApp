@@ -55,7 +55,7 @@ public class EnemyCircle extends SimpleCircle
             setColor(ENEMY_COLOR);
     }
 
-    private boolean isSmallerThan(SimpleCircle circle) {
+    public boolean isSmallerThan(SimpleCircle circle) {
         //сравниваем радиус текущего круга и круга, который пришел через параметры
         if (radius < circle.radius){
             return true;
@@ -75,7 +75,7 @@ public class EnemyCircle extends SimpleCircle
         if (x > GameManager.getWidth() || x < 0){
             dx = - dx;
         }
-        if (y > GameManager.getWidth() || y < 0){
+        if (y > GameManager.getHeight() || y < 0){
             dy = - dy;
         }
     }
